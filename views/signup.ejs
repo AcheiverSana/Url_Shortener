@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shortly — Sign Up</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Clash+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f5f3ee;
+      color: #1a1a1a;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+    }
+
+    .logo {
+      font-family: 'Clash Display', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #1a1a1a;
+      letter-spacing: -0.5px;
+      text-decoration: none;
+    }
+
+    .logo span { color: #e8533a; }
+
+    .nav-link {
+      font-size: 13px;
+      color: #888;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-link:hover { color: #1a1a1a; }
+
+    /* CENTER LAYOUT */
+    .page {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+    }
+
+    .card {
+      background: #fff;
+      border: 1.5px solid #e8e4dc;
+      border-radius: 20px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #e8533a;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .eyebrow::before {
+      content: '';
+      display: block;
+      width: 16px;
+      height: 2px;
+      background: #e8533a;
+      border-radius: 2px;
+    }
+
+    h1 {
+      font-family: 'Clash Display', sans-serif;
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: -1px;
+      color: #1a1a1a;
+      margin-bottom: 8px;
+    }
+
+    .subtext {
+      font-size: 14px;
+      color: #999;
+      margin-bottom: 36px;
+      line-height: 1.5;
+    }
+
+    /* FORM */
+    .field {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: #777;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      background: #f5f3ee;
+      border: 1.5px solid #e8e4dc;
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: #1a1a1a;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input::placeholder { color: #bbb; }
+
+    input:focus {
+      border-color: #1a1a1a;
+      box-shadow: 0 0 0 4px rgba(26,26,26,0.06);
+      background: #fff;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: #1a1a1a;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .submit-btn:hover { background: #333; }
+    .submit-btn:active { transform: scale(0.99); }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 24px 0;
+    }
+
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: #e8e4dc;
+    }
+
+    .divider-text {
+      font-size: 12px;
+      color: #bbb;
+    }
+
+    .login-link {
+      text-align: center;
+      font-size: 13px;
+      color: #999;
+    }
+
+    .login-link a {
+      color: #1a1a1a;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .login-link a:hover { text-decoration: underline; }
+
+    /* Error message */
+    .error-msg {
+      background: #fff5f5;
+      border: 1.5px solid #ffd5d5;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #e8533a;
+      margin-bottom: 20px;
+      display: none;
+    }
+    .error-msg.show { display: block; }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 12px;
+      color: #bbb;
+      border-top: 1.5px solid #e8e4dc;
+    }
+
+    @media (max-width: 480px) {
+      nav { padding: 16px 20px; }
+      .card { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="logo">short<span>.</span>ly</a>
+    <a href="/" class="nav-link">← Back to home</a>
+  </nav>
+
+  <div class="page">
+    <div class="card">
+
+      <div class="eyebrow">Get started</div>
+      <h1>Create account</h1>
+      <p class="subtext">Start shortening links in seconds. No credit card required.</p>
+
+      <% if (locals.error) { %>
+        <div class="error-msg show"><%= error %></div>
+      <% } %>
+
+      <form action="/user" method="POST">
+
+        <div class="field">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" placeholder="Sana Khan" required />
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="sana@example.com" required />
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="Min. 8 characters" required />
+        </div>
+
+        <button type="submit" class="submit-btn">Create account →</button>
+
+      </form>
+
+      <div class="divider">
+        <div class="divider-line"></div>
+        <div class="divider-text">already have an account?</div>
+        <div class="divider-line"></div>
+      </div>
+
+      <div class="login-link">
+        <a href="/user/login">Log in instead</a>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>Built with Express + MongoDB · Shortly 2026</footer>
+
+</body>
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shortly</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Clash+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f5f3ee;
+      color: #1a1a1a;
+      min-height: 100vh;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: #f5f3ee;
+    }
+
+    .logo {
+      font-family: 'Clash Display', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #1a1a1a;
+      letter-spacing: -0.5px;
+    }
+
+    .logo span { color: #e8533a; }
+
+    .nav-link {
+      font-size: 13px;
+      color: #888;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-link:hover { color: #1a1a1a; }
+
+    .main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 80px 24px 60px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #e8533a;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .eyebrow::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: #e8533a;
+      border-radius: 2px;
+    }
+
+    h1 {
+      font-family: 'Clash Display', sans-serif;
+      font-size: clamp(40px, 6vw, 64px);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -2px;
+      color: #1a1a1a;
+      margin-bottom: 16px;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: #e8533a;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: #777;
+      line-height: 1.6;
+      margin-bottom: 48px;
+      max-width: 380px;
+    }
+
+    .input-area {
+      background: #fff;
+      border: 1.5px solid #e8e4dc;
+      border-radius: 16px;
+      padding: 8px 8px 8px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .input-area:focus-within {
+      border-color: #1a1a1a;
+      box-shadow: 0 0 0 4px rgba(26,26,26,0.06);
+    }
+
+    .input-area input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: #1a1a1a;
+      background: transparent;
+    }
+
+    .input-area input::placeholder { color: #bbb; }
+
+    .shorten-btn {
+      background: #1a1a1a;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 14px 24px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      white-space: nowrap;
+    }
+
+    .shorten-btn:hover { background: #333; }
+    .shorten-btn:active { transform: scale(0.98); }
+
+    .result {
+      background: #fff;
+      border: 1.5px solid #e8e4dc;
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .result-left { display: flex; flex-direction: column; gap: 4px; }
+
+    .result-label {
+      font-size: 11px;
+      color: #bbb;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .result-link {
+      font-size: 15px;
+      font-weight: 600;
+      color: #e8533a;
+      text-decoration: none;
+    }
+    .result-link:hover { text-decoration: underline; }
+
+    .copy-btn {
+      background: #f5f3ee;
+      border: 1.5px solid #e8e4dc;
+      color: #1a1a1a;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .copy-btn:hover { background: #eae7e0; }
+    .copy-btn.copied {
+      background: #1a1a1a;
+      color: #fff;
+      border-color: #1a1a1a;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #bbb;
+      margin-bottom: 16px;
+    }
+
+    .links-list { display: flex; flex-direction: column; gap: 8px; }
+
+    .link-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fff;
+      border: 1.5px solid #e8e4dc;
+      border-radius: 12px;
+      padding: 16px 20px;
+      gap: 16px;
+      transition: border-color 0.2s;
+    }
+
+    .link-row:hover { border-color: #ccc; }
+
+    .link-texts { flex: 1; min-width: 0; }
+
+    .link-long {
+      font-size: 12px;
+      color: #bbb;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 4px;
+    }
+
+    .link-short-text {
+      font-size: 14px;
+      font-weight: 500;
+      color: #1a1a1a;
+    }
+
+    .clicks-badge {
+      font-size: 11px;
+      font-weight: 500;
+      color: #888;
+      background: #f5f3ee;
+      padding: 4px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    hr {
+      border: none;
+      border-top: 1.5px solid #e8e4dc;
+      margin: 40px 0;
+    }
+
+    .stats { display: flex; gap: 32px; }
+    .stat { flex: 1; }
+
+    .stat-num {
+      font-family: 'Clash Display', sans-serif;
+      font-size: 36px;
+      font-weight: 600;
+      letter-spacing: -1px;
+      color: #1a1a1a;
+      margin-bottom: 4px;
+    }
+
+    .stat-desc { font-size: 13px; color: #999; }
+
+    footer {
+      text-align: center;
+      padding: 32px;
+      font-size: 12px;
+      color: #bbb;
+      border-top: 1.5px solid #e8e4dc;
+      margin-top: 80px;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(16px);
+      background: #1a1a1a;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 12px 24px;
+      border-radius: 100px;
+      opacity: 0;
+      transition: all 0.25s ease;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    @media (max-width: 560px) {
+      nav { padding: 16px 20px; }
+      .main { padding: 48px 20px 40px; }
+      .stats { flex-direction: column; gap: 20px; }
+      .input-area { flex-direction: column; align-items: stretch; padding: 12px; }
+      .shorten-btn { text-align: center; border-radius: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">short<span>.</span>ly</div>
+    <a href="#" class="nav-link">View all links →</a>
+     <a href="/" class="logo">short<span>.</span>ly</a>
+  <div style="display:flex; align-items:center; gap:16px;">
+    <% if (locals.role === "admin") { %>
+      <span style="
+        background: #1a1a1a;
+        color: #f5f3ee;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 6px 12px;
+        border-radius: 20px;
+      ">Admin</span>
+    <% } %>
+    <a href="#" class="nav-link">View all links →</a>
+  </div>
+  </nav>
+
+  <main class="main">
+
+  
+
+    <div class="eyebrow">URL Shortener</div>
+    <h1>Long links,<br><em>made short.</em></h1>
+    <p class="subtitle">Paste any URL and get a short link you can actually share.</p>
+
+    <!-- FORM -->
+    <form action="/url" method="POST">
+      <div class="input-area">
+        <input type="url" name="url" placeholder="https://your-very-long-link.com/goes/here" required />
+        <button type="submit" class="shorten-btn">Shorten</button>
+      </div>
+    </form>
+
+    <!-- RESULT — only shows after form submit -->
+    <% if (locals.id) { %>
+    <div class="result">
+      <div class="result-left">
+        <span class="result-label">Your short link</span>
+        <a class="result-link" href="/<%= id %>" target="_blank">localhost:8000/<%= id %></a>
+      </div>
+      <button class="copy-btn" onclick="copyLink('http://localhost:8000/<%= id %>')">Copy link</button>
+    </div>
+    <% } %>
+
+    <!-- RECENT LINKS — from database -->
+    <div class="section-label">Recent links</div>
+    <div class="links-list">
+      <% if (locals.urls && urls.length > 0) { %>
+        <% urls.slice().reverse().slice(0, 5).forEach(function(url) { %>
+          <div class="link-row">
+            <div class="link-texts">
+              <div class="link-long"><%= url.redirecturl %></div>
+              <div class="link-short-text">localhost:8000/<%= url.shortID %></div>
+            </div>
+            <span class="clicks-badge"><%= url.visitHistory.length %> clicks</span>
+          </div>
+        <% }) %>
+      <% } else { %>
+        <div class="link-row">
+          <div class="link-texts">
+            <div class="link-long">No links yet</div>
+            <div class="link-short-text">Shorten your first URL above</div>
+          </div>
+        </div>
+      <% } %>
+    </div>
+
+    <hr />
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-num"><%= locals.urls ? urls.length : 0 %></div>
+        <div class="stat-desc">Links created</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">
+          <%= locals.urls ? urls.reduce((acc, u) => acc + u.visitHistory.length, 0) : 0 %>
+        </div>
+        <div class="stat-desc">Total clicks</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">99%</div>
+        <div class="stat-desc">Uptime</div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>Built with Express + MongoDB · Shortly 2026</footer>
+
+  <div class="toast" id="toast">Link copied!</div>
+
+  <script>
+    function copyLink(url) {
+      navigator.clipboard.writeText(url);
+      const btn = event.target;
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => {
+        btn.textContent = 'Copy link';
+        btn.classList.remove('copied');
+        toast.classList.remove('show');
+      }, 2000);
+    }
+  </script>
+
+</body>
+</html>
