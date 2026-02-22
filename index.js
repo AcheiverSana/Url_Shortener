@@ -13,7 +13,7 @@ const cookieParser = require("cookie-parser");
 const userrouter = require("./Routes/user.js");
 
 
- connect("mongodb://localhost:27017/urlshortener")
+ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("connected to mongodb"))
   .catch((err) => console.log(err));
 

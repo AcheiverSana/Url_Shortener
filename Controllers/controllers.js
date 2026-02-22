@@ -11,7 +11,7 @@ async function generateshorturl(req, res) {
     shortID: SHORTID,
     redirecturl: body.url,
     visitHistory: [],
-    createdBy: req.user.id, // ✅ JWT decoded gives .id not ._id
+    createdBy: req.user.id, 
   });
 
   return res.redirect(`/?id=${SHORTID}`);
