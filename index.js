@@ -5,7 +5,7 @@ const cookieParser = require("cookie-parser");
  const connect = require("./connect.js");
  const URL = require("./Models/url.js"); 
  const app = express();
- const port = 8000;
+const port = process.env.PORT || 8000;
 
 
  const urlrouter = require("./Routes/router.js");
