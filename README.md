@@ -2,6 +2,10 @@
 
 A full-stack URL shortener where you can paste any long link and get a clean, shareable short URL. Built with Node.js, Express, MongoDB, and EJS with JWT authentication and role-based access control.
 
+🔗 **Live Demo:** [https://url-shortener-g9x8.onrender.com](https://url-shortener-g9x8.onrender.com)
+
+> ⚠️ **Note:** The app is hosted on Render's free tier, so it may take **30–60 seconds** to wake up on the first visit.
+
 ---
 
 ## Preview
@@ -13,14 +17,14 @@ A full-stack URL shortener where you can paste any long link and get a clean, sh
 
 ## Tech Stack
 
-| Layer     | Technology         |
-|-----------|-----------         |
-| Runtime   | Node.js            |
-| Framework | Express.js         |
-| Database  | MongoDB + Mongoose |
-| Templating|EJS                 |
-| Auth      |JWT + cookie-parser |
-|ID Generation| shortid          |
+| Layer          | Technology          |
+| -------------- | ------------------- |
+| Runtime        | Node.js             |
+| Framework      | Express.js          |
+| Database       | MongoDB + Mongoose  |
+| Templating     | EJS                 |
+| Auth           | JWT + cookie-parser |
+| ID Generation  | shortid             |
 
 ---
 
@@ -75,19 +79,28 @@ cd Url_Shortener
 npm install
 ```
 
-### 3. Make sure MongoDB is running locally
+### 3. Set up environment variables
+
+Create a `.env` file in the root directory:
+
+```env
+MONGO_URI=mongodb://localhost:27017/urlshortener
+JWT_SECRET=your_secret_key_here
+```
+
+### 4. Make sure MongoDB is running locally
 
 ```bash
 mongod
 ```
 
-### 4. Start the server
+### 5. Start the server
 
 ```bash
 npm run start
 ```
 
-### 5. Open in browser
+### 6. Open in browser
 
 ```
 http://localhost:8000
@@ -98,19 +111,22 @@ http://localhost:8000
 ## How It Works
 
 ### Shortening a URL
+
 1. User logs in
-2. Pastes a long URL and clicks Shorten
+2. Pastes a long URL and clicks **Shorten**
 3. A unique short code is generated using `shortid`
 4. Short URL is saved to MongoDB with `createdBy` set to the logged-in user
 5. User is redirected to home with their short link displayed
 
 ### Visiting a Short URL
+
 1. User visits `localhost:8000/:shortID`
 2. Server finds the URL in MongoDB
 3. Adds a timestamp to `visitHistory` (click tracking)
 4. Redirects to the original URL
 
 ### Authentication Flow
+
 ```
 Signup / Login
     → JWT token created with { id, role }
@@ -130,10 +146,10 @@ Protected routes
 
 ## Role-Based Access
 
-| Role | What they see |
-|------|--------------|
-| `normal` | Only their own shortened URLs |
-| `admin` | All URLs from every user |
+| Role     | What they see                      |
+| -------- | ---------------------------------- |
+| `normal` | Only their own shortened URLs      |
+| `admin`  | All URLs from every user           |
 
 ### Making a user Admin
 
@@ -148,29 +164,25 @@ db.users.updateOne({ name: "Sana" }, { $set: { role: "admin" } })
 
 ## API Routes
 
-| Method | Route | Description |
-|--------|-------|-------------|
-| GET | `/` | Home page |
-| GET | `/signup` | Signup page |
-| GET | `/login` | Login page |
-| POST | `/user` | Create account |
-| POST | `/user/login` | Log in |
-| POST | `/url` | Shorten a URL |
-| GET | `/:shortID` | Redirect to original URL |
-| GET | `/url/analytics/:shortID` | Get click analytics |
+| Method | Route                       | Description              |
+| ------ | --------------------------- | ------------------------ |
+| GET    | `/`                         | Home page                |
+| GET    | `/signup`                   | Signup page              |
+| GET    | `/login`                    | Login page               |
+| POST   | `/user`                     | Create account           |
+| POST   | `/user/login`               | Log in                   |
+| POST   | `/url`                      | Shorten a URL            |
+| GET    | `/:shortID`                 | Redirect to original URL |
+| GET    | `/url/analytics/:shortID`   | Get click analytics      |
 
 ---
 
 ## Environment Variables
 
-Move hardcoded secrets to a `.env` file:
-
-```
-MONGO_URI=mongodb://localhost:27017/urlshortener
-JWT_SECRET=your_secret_key_here
-```
-
-Then access them in code with `process.env.MONGO_URI` and `process.env.JWT_SECRET`.
+| Variable     | Description                        |
+| ------------ | ---------------------------------- |
+| `MONGO_URI`  | MongoDB connection string          |
+| `JWT_SECRET` | Secret key for signing JWT tokens  |
 
 ---
 
