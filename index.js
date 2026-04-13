@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const express = require("express");
  const path = require("path");
 const cookieParser = require("cookie-parser"); 
@@ -14,7 +13,7 @@ const cookieParser = require("cookie-parser");
 const userrouter = require("./Routes/user.js");
 
 
- mongoose.connect(process.env.MONGO_URI)
+connect(process.env.MONGO_URI)
   .then(() => console.log("connected to mongodb"))
   .catch((err) => console.log(err));
 
